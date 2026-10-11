@@ -33,6 +33,7 @@
       // Aliases for module paths
       "@/*": ["./*"]
     },
+    "ignoreDeprecations": "6.0",
 
     // Type checking
     "skipLibCheck": true // Skip type checking of declaration files
