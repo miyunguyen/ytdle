@@ -35,7 +35,7 @@ type HealthChecksConfig struct {
 
 func DefaultObservabilityConfig() *ObservabilityConfig {
 	return &ObservabilityConfig{
-		ServiceName: "boilerplate",
+		ServiceName: "ytdle",
 		Environment: "development",
 		Logging: LoggingConfig{
 			Level:              "info",
