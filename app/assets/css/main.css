@@ -1,0 +1,47 @@
+body {
+    margin: 1em 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+}
+
+h1 {
+    color: red;
+}
+
+main {
+    text-align: center;
+}
+
+section {
+    display: flex;
+    gap: 0.4em;
+    width: 100%;
+}
+
+.video {
+    display: flex;
+    flex-direction: column;
+}
+
+footer {
+    align-items: center;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-top: 3em;
+}

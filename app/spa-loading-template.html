@@ -1,0 +1,20 @@
+<!-- https://github.com/barelyhuman/snips/blob/dev/pages/css-loader.md -->
+<div class="loader"></div>
+<style>
+  .loader {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    width: 24px;
+    height: 24px;
+    margin: -12px 0 0 -12px;
+    border: 2px solid #efefef;
+    border-top-color: #000;
+    border-radius: 50%;
+    animation: loader 600ms linear infinite;
+  }
+
+  @keyframes loader {
+    to { transform: rotate(360deg); }
+  }
+</style>
