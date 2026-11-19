@@ -153,6 +153,41 @@ const lastUpdate = "Nov 18 2026";
 const current = useState('current', () => 0);
 const next = useState('next', () => current.value + 1);
 
+const isShowNextStat = useState('showStat', () => false);
+const endGame = useState('endGame', () => false);
+const blockAction = useState('block', () => false);
+
+const score = useState('score', () => 0);
+
+function handleClick(event: any) {
+
+  let targetNumber = event.target._value
+  let targetVideo = videos[targetNumber];
+  let otherVideo = null;
+
+  if (targetNumber == current.value) {
+    otherVideo = videos[next.value]
+  } else {
+    otherVideo = videos[current.value]
+  }
+  
+  isShowNextStat.value = true;
+
+  if (targetVideo?.statistics.viewCount! >= otherVideo?.statistics.viewCount!) {
+    score.value ++;
+  } else {
+    endGame.value = true;
+    blockAction.value = true;
+    return;
+  }
+
+  setTimeout(() => {
+    isShowNextStat.value = false;
+    current.value ++;
+    next.value ++;
+  }, 1000);
+}
+
 </script>
 
 <template>
@@ -169,20 +204,26 @@ const next = useState('next', () => current.value + 1);
   <main>
     <h2>Which video has more view ?</h2>
     <p>Last update: {{ lastUpdate }}</p>
+    <p>Score: {{ score }}</p>
 
     <section>
       <div class="video">
         <iframe width="520" height="315" :src="'https://www.youtube.com/embed/'+videos[current]?.videoId"></iframe>
-        <p>{{ videos[current]?.statistics.viewCount }} views</p>
-        <button @click="current++; next++">{{ videos[next]?.title }}</button>
+        <p>{{ formatNumber(videos[current]?.statistics.viewCount!) }} views</p>
+        <button :disabled="blockAction" :value="current" @click="handleClick($event)">{{ videos[current]?.title }}</button>
       </div>
       <div class="video">
         <iframe width="520" height="315" :src="'https://www.youtube.com/embed/'+videos[next]?.videoId"></iframe>
-        <p style="visibility: hidden;">{{ videos[next]?.statistics.viewCount }} views</p>
-        <button @click="current++; next++">{{ videos[next]?.title }}</button>
+        <p v-bind:style="{ 'visibility': isShowNextStat ? 'visible' : 'hidden'}">{{ formatNumber(videos[next]?.statistics.viewCount!) }} views</p>
+        <button :disabled="blockAction" :value="next" @click="handleClick($event)">{{ videos[next]?.title }}</button>
       </div>
     </section>
   </main>
+
+  <Teleport to="body">
+    <modal :show="endGame" :score="score" @close="endGame = false">
+    </modal>
+  </Teleport>
 
   <footer>
       <p>submit your theme: </p>
